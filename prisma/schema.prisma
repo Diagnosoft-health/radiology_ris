@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model DetailedReport {
+  Radiologist_Staff_Id Int            @id
+  Medical_Image_ID     Int
+  Report_Content       String?        @db.VarChar(45)
+  RadiologyStaff       RadiologyStaff @relation(fields: [Radiologist_Staff_Id], references: [Staff_Id], onDelete: NoAction, onUpdate: NoAction, map: "Staff_Id")
+}
+
+model ExaminationPreparation {
+  Examination_code       Int                 @id
+  Inspection_code        Int?
+  Staff_Radiologist_code String?             @db.VarChar(255)
+  Document_Date          DateTime?           @db.Date
+  Examination_Type       String?             @db.VarChar(255)
+  Inspection_Type        String?             @db.VarChar(255)
+  Confirmation_Date      DateTime?           @db.Date
+  ExaminationRequest     ExaminationRequest? @relation(fields: [Inspection_code], references: [Inspection_code], onDelete: NoAction, onUpdate: NoAction, map: "ExaminationPreparation_ibfk_1")
+
+  @@index([Inspection_code], map: "Inspection_code")
+}
+
+model ExaminationRequest {
+  Inspection_code           Int                        @id
+  Patient_Id                Int?
+  Patient_room              String?                    @db.VarChar(255)
+  Doctor_Name               String?                    @db.VarChar(255)
+  Diagnosis                 String?                    @db.VarChar(255)
+  Document_Date             Int?
+  todrop                    Int?
+  Patient                   Patient?                   @relation(fields: [Patient_Id], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "Id")
+  ExaminationPreparation    ExaminationPreparation[]
+  ExaminationRequestDetails ExaminationRequestDetails?
+
+  @@index([Patient_Id], map: "Patient_Id_idx")
+}
+
+model ExaminationRequestDetails {
+  Inspection_code        Int                @id
+  Inspection_Type        String?            @db.VarChar(255)
+  Modality_Code          Int?
+  Inspection_Description String?            @db.VarChar(255)
+  Price                  Int?
+  Total_Price            Int?
+  Status                 String?            @db.VarChar(255)
+  todrop                 Int?
+  ExaminationRequest     ExaminationRequest @relation(fields: [Inspection_code], references: [Inspection_code], onDelete: NoAction, onUpdate: NoAction, map: "ExaminationRequestDetails_ibfk_1")
+  Modality               Modality?          @relation(fields: [Modality_Code], references: [Modality_code], onDelete: NoAction, onUpdate: NoAction, map: "ExaminationRequestDetails")
+  ScanFile               ScanFile[]
+
+  @@index([Modality_Code], map: "ExaminationRequestDetails_idx")
+}
+
+model Modality {
+  Modality_code             Int                         @id
+  Modality_name             String?                     @db.VarChar(255)
+  Modality_group            String?                     @db.VarChar(255)
+  ExaminationRequestDetails ExaminationRequestDetails[]
+}
+
+model Patient {
+  Id                 Int                  @id
+  Name               String?              @db.VarChar(255)
+  Place_of_Birth     String?              @db.VarChar(255)
+  Date_of_Birth      DateTime?            @db.Date
+  Id_Number          String?              @db.VarChar(255)
+  Identity_Type      String?              @db.VarChar(255)
+  Gender             String?              @db.VarChar(255)
+  Profession         String?              @db.VarChar(255)
+  Address            String?              @db.VarChar(255)
+  Ward               String?              @db.VarChar(255)
+  District           String?              @db.VarChar(255)
+  City               String?              @db.VarChar(255)
+  Email              String?              @db.VarChar(255)
+  Marriage_Status    String?              @db.VarChar(255)
+  Religion           String?              @db.VarChar(255)
+  Mobile_Number      String?              @db.VarChar(255)
+  Emergency_Contact  String?              @db.VarChar(255)
+  Citizenship        String?              @db.VarChar(255)
+  Password           String?              @db.VarChar(255)
+  Registered_Date    DateTime?            @db.Date
+  Allergies          String?              @db.VarChar(255)
+  ExaminationRequest ExaminationRequest[]
+  PatientDetails     PatientDetails?
+}
+
+model PatientDetails {
+  Patient_Id          Int       @id
+  Registered_Date     DateTime? @db.Date
+  Representative_Id   Int?
+  Representative_Name String?   @db.VarChar(255)
+  Patient             Patient   @relation(fields: [Patient_Id], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "PatientDetails_ibfk_1")
+}
+
+model RadiologyStaff {
+  Staff_Id        Int             @id
+  Staff_Name      String?         @db.VarChar(255)
+  Staff_Category  String?         @db.VarChar(255)
+  Date_of_birth   DateTime?       @db.Date
+  Date_of_joining DateTime?       @db.Date
+  Home_Number     String?         @db.VarChar(255)
+  Mobile_Number   String?         @db.VarChar(255)
+  Password        String?         @db.VarChar(255)
+  email           String?         @db.VarChar(255)
+  DetailedReport  DetailedReport?
+  ScanFile        ScanFile[]
+}
+
+model ScanFile {
+  Scan_Id                   Int                        @id
+  Inspection_code           Int?
+  Date_of_scan              DateTime?                  @db.Date
+  S3_Location               String?                    @db.VarChar(255)
+  Examiner_Id               Int?
+  RadiologyStaff            RadiologyStaff?            @relation(fields: [Examiner_Id], references: [Staff_Id], onDelete: NoAction, onUpdate: NoAction, map: "ScanFile_ibfk_2")
+  ExaminationRequestDetails ExaminationRequestDetails? @relation(fields: [Inspection_code], references: [Inspection_code], onDelete: NoAction, onUpdate: NoAction, map: "ScanFile_ibfk_1")
+
+  @@index([Examiner_Id], map: "Examiner_Id")
+  @@index([Inspection_code], map: "Inspection_code")
+}

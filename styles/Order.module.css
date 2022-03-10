@@ -1,0 +1,20 @@
+.suggestions{
+    
+    background: #ffffff;
+    width: 95%;
+    
+    position: absolute;
+    top: 64px;
+    z-index: 900;
+}
+
+.suggestion{
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    padding: 5px;
+}
+
+.suggestion:hover{
+    background-color: #e5e5e5;
+}
+
