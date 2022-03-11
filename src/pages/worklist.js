@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Box, Container, Typography,Button } from '@mui/material';
-import { CustomerListResults } from '../components/patient/patient-list-results';
-import { CustomerListToolbar } from '../components/patient/patient-list-toolbar';
+// import { CustomerListResults } from '../components/patient/patient-list-results';
+// import { CustomerListToolbar } from '../components/patient/patient-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+// import { customers } from '../__mocks__/customers';
 
 const Worklist = () => (
   <>
