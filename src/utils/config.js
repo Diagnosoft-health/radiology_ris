@@ -1,5 +1,5 @@
 const config = {
-  api_address: 'https://5f1952bf-3514-4a8c-89d9-4e39ebebc2b9.trainml.cloud',
+  api_address: 'https://1590b9bf-947c-4cad-9cf1-df88a250b2c0.trainml.cloud',
   route_path: '/predict',
 };
 

@@ -11,11 +11,16 @@ function Results({ predictions, image }) {
     zIndex: 100,
   };
 
+  const imge = {
+    width: '100%',
+  }
+
  
   if (!predictions.length) {
     return null;
   } else {
     const reversed = [...predictions].reverse();
+    console.log(reversed)
     return (
       <>
         <Box textAlign="center">
@@ -23,12 +28,20 @@ function Results({ predictions, image }) {
         </Box>
         {reversed.map((prediction, i) => {
           return (
-            <Box container direction="column" key={i}>
+            <Box container
+             direction="column" 
+             key={i}>
               <br />
               <div >
-                <img src={`data:image/png;base64,${image}`} alt="prediction" style={overlay} />
+                {/* <img src={`data:image/png;base64,${prediction.prediction}`} 
+                alt="prediction" 
+                style={overlay} /> */}
                 <div >
-                  <img src={prediction.prediction} alt="prediction"  />
+                  <img src={prediction.prediction} 
+                  alt="prediction"  
+                  style={imge} />
+                  
+                  
                 </div>
               </div>
             </Box>

@@ -30,21 +30,20 @@ import prisma from "src/utils/prisma";
 //   }
 // }
 
-
 const drawerWidth = 380;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(0.5),
-    transition: theme.transitions.create(["margin", "width"],{
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     // marginRight: -drawerWidth,
     ...(open && {
       width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["margin","width "], {
+      transition: theme.transitions.create(["margin", "width "], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -66,8 +65,7 @@ const Orders = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const { orders } = props
-  
+  const { orders } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,7 +103,8 @@ const Orders = (props) => {
           <Container maxWidth={false}>
             <CustomerListToolbar />
             <Box sx={{ mt: 3 }}>
-              <CustomerListResults orders={orders} handleDrawerOpen={handleDrawerOpen} />
+              <CustomerListResults orders={orders}
+               handleDrawerOpen={handleDrawerOpen} />
             </Box>
           </Container>
         </Main>
@@ -123,14 +122,24 @@ const Orders = (props) => {
           anchor="right"
           open={open}
         >
-          <DrawerHeader sx={{ width: '100%'}}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%", alignItems: 'center' }}>
-              <Typography color="textPrimary" variant='h5'>Order No: {orders.Inspection_code}</Typography>
-            <IconButton onClick={handleDrawerClose}>
-              <CloseIcon />
-                
-              {/* {theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
-            </IconButton>
+          <DrawerHeader sx={{ width: "100%" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <Typography color="textPrimary" 
+              variant="h5">
+                Order No: {orders.Inspection_code}
+              </Typography>
+              <IconButton onClick={handleDrawerClose}>
+                <CloseIcon />
+
+                {/* {theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
+              </IconButton>
             </Box>
           </DrawerHeader>
           <Divider />
@@ -148,27 +157,27 @@ export async function getServerSideProps() {
   try {
     const orders = await prisma.examinationRequest.findMany({
       orderBy: {
-        Inspection_code: 'desc'
+        Inspection_code: "desc",
       },
       include: {
-        Patient : {
-          select : {
-        Name: true,
-        Id_Number: true,
-        Place_of_Birth: true,
-        Identity_Type: true,
-        Gender: true,
-        Mobile_Number: true,
-        Allergies: true,
-          }
-        }
-      }
+        Patient: {
+          select: {
+            Name: true,
+            Id_Number: true,
+            Place_of_Birth: true,
+            Identity_Type: true,
+            Gender: true,
+            Mobile_Number: true,
+            Allergies: true,
+          },
+        },
+      },
     });
-    console.log(orders)
+    console.log(orders);
     return {
-      props: { orders }
-    }
+      props: { orders },
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
