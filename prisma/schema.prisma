@@ -8,10 +8,14 @@ datasource db {
 }
 
 model DetailedReport {
-  Radiologist_Staff_Id Int            @id
-  Medical_Image_ID     Int
-  Report_Content       String?        @db.VarChar(45)
-  RadiologyStaff       RadiologyStaff @relation(fields: [Radiologist_Staff_Id], references: [Staff_Id], onDelete: NoAction, onUpdate: NoAction, map: "Staff_Id")
+  Radiologist_Staff_Id Int?
+  Medical_Image_ID     Int?
+  Report_Content       String?            @db.LongText
+  Examination_Id       Int
+  Report_Id            Int                @id @default(autoincrement())
+  ExaminationRequest   ExaminationRequest @relation(fields: [Examination_Id], references: [Inspection_code], onDelete: NoAction, onUpdate: NoAction, map: "Inspection_code")
+
+  @@index([Examination_Id], map: "Inspection_Code_idx")
 }
 
 model ExaminationPreparation {
@@ -35,7 +39,9 @@ model ExaminationRequest {
   Diagnosis                 String?                    @db.VarChar(255)
   Document_Date             Int?
   todrop                    Int?
+  uploaded                  Boolean?                   @default(false)
   Patient                   Patient?                   @relation(fields: [Patient_Id], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "Id")
+  DetailedReport            DetailedReport[]
   ExaminationPreparation    ExaminationPreparation[]
   ExaminationRequestDetails ExaminationRequestDetails?
 
@@ -100,16 +106,15 @@ model PatientDetails {
 }
 
 model RadiologyStaff {
-  Staff_Id        Int             @id
-  Staff_Name      String?         @db.VarChar(255)
-  Staff_Category  String?         @db.VarChar(255)
-  Date_of_birth   DateTime?       @db.Date
-  Date_of_joining DateTime?       @db.Date
-  Home_Number     String?         @db.VarChar(255)
-  Mobile_Number   String?         @db.VarChar(255)
-  Password        String?         @db.VarChar(255)
-  email           String?         @db.VarChar(255)
-  DetailedReport  DetailedReport?
+  Staff_Id        Int        @id
+  Staff_Name      String?    @db.VarChar(255)
+  Staff_Category  String?    @db.VarChar(255)
+  Date_of_birth   DateTime?  @db.Date
+  Date_of_joining DateTime?  @db.Date
+  Home_Number     String?    @db.VarChar(255)
+  Mobile_Number   String?    @db.VarChar(255)
+  Password        String?    @db.VarChar(255)
+  email           String?    @db.VarChar(255)
   ScanFile        ScanFile[]
 }
 

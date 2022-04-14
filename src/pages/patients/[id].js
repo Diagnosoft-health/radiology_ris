@@ -50,7 +50,7 @@ const Patient = (props) => {
 //       console.log(error);
 //     }
 //   }
-
+ 
   const handleSubmit = async e => {
       e.preventDefault();
       let data = formValues

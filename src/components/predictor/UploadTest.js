@@ -9,6 +9,8 @@ import { Box, Container, Grid } from '@mui/material';
 
 const uploadImage = async ({ filename, contents }) => {
   if (contents) {
+
+    
     try {
       const resp = await axios.post(
         `${config.api_address}${config.route_path}`,
@@ -17,6 +19,7 @@ const uploadImage = async ({ filename, contents }) => {
           contents,
         }
       );
+      
       return resp.data;
     } catch (error) {
       if (error.response) {
@@ -32,13 +35,16 @@ const uploadImage = async ({ filename, contents }) => {
 
 
 
-function UploadTest() {
-  const [input, setInput] = useState({});
+function UploadTest(props) {
+  const {  Inspection_code } = props
+  // let inspection_code = toString(Inspection_code)
+  const [input, setInput] = useState();
   const [predictions, setPredictions] = useState([]);
   const [open, setOpen] = useState(false);
   const[fileBase64String, setFileBase64String] = useState("")
 
-  
+  console.log(input)
+  // console.log(typeof inspection_code)
 
   return (
     
@@ -47,6 +53,7 @@ function UploadTest() {
       <Container >
             <Input
             predictions={predictions}
+            Inspection_code={Inspection_code}
               onChange={setInput}
               onSubmit={async () => {
                 const result = await uploadImage(input);

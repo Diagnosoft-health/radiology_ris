@@ -12,6 +12,8 @@ const Predictor = (props) => {
   
   const { visit } = props
 
+  const Inspection_code = visit.Inspection_code;
+  
   return (
   <>
     <Head>
@@ -29,7 +31,7 @@ const Predictor = (props) => {
         py: 3
       }}
     >
-      <UploadTest />
+      <UploadTest Inspection_code={Inspection_code}  />
       
     </Box>
   </>

@@ -19,6 +19,7 @@ import {
 import { getInitials } from "../../utils/get-initials";
 import NextLink from "next/link";
 import Link from "next/link";
+import ArticleIcon from '@mui/icons-material/Article';
 
 export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -94,6 +95,7 @@ export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
                 <TableCell>Patient Name</TableCell>
                 <TableCell>Doctor Name</TableCell>
                 <TableCell>Location</TableCell>
+                <TableCell>Report</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -131,6 +133,13 @@ export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
                       Order Details
                     </Button>
                   </TableCell> */}
+                  <TableCell>
+                    <Link href={`/report/${order.Inspection_code}`}>
+                      <Button size="small">
+                        <ArticleIcon/>
+                      </Button>
+                    </Link>
+                  </TableCell>
                   <TableCell align="left">
                   <Link href={`/predictor/${order.Inspection_code}`}>
                     <Button size="small">

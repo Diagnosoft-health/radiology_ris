@@ -173,7 +173,7 @@ export async function getServerSideProps() {
         },
       },
     });
-    console.log(orders);
+    // console.log(orders);
     return {
       props: { orders },
     };

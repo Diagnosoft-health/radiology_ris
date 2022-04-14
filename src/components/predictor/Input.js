@@ -29,27 +29,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getImage = async (e) => {
-  const filename = e.target.files[0].name;
-  const file = await new Promise((resolve, reject) => {
-    var fr = new FileReader();
-    fr.onload = () => {
-      resolve(fr.result);
-    };
-    fr.readAsDataURL(e.target.files[0]);
-  });
-  const base64result = file.split(",")[1];
+// const getImage = async (e) => {
+//   const filename = e.target.files[0].name;
+//   // const inspection_code = 1;
+//   const file = await new Promise((resolve, reject) => {
+//     var fr = new FileReader();
+//     fr.onload = () => {
+//       resolve(fr.result);
+//     };
+//     fr.readAsDataURL(e.target.files[0]);
+//   });
+//   const base64result = file.split(",")[1];
 
-  return { filename, contents: base64result };
-};
+//   return { filename, contents: base64result };
+// };
 
-function Input({ onChange, onSubmit, predictions }) {
+function Input({ onChange, onSubmit, predictions, Inspection_code }) {
   const classes = useStyles();
   const [filename, setFilename] = useState();
   const [image, setImage] = useState();
   const [submitting, setSubmitting] = useState(false);
 
+  const getImage = async (e) => {
+    const filename = e.target.files[0].name;
+    // const id = Inspection_code;
+    // let inspection_code = id.toString()
+
+    const file = await new Promise((resolve, reject) => {
+      var fr = new FileReader();
+      fr.onload = () => {
+        resolve(fr.result);
+      };
+      fr.readAsDataURL(e.target.files[0]);
+    });
+    const base64result = file.split(",")[1];
   
+    return { filename, contents: base64result };
+  };
+
+  
+
+
   if (filename) {
     return (
       <>
@@ -72,6 +92,7 @@ function Input({ onChange, onSubmit, predictions }) {
                     const image = await getImage(e);
                     setImage(image.contents);
                     setFilename(image.filename);
+                    
                     onChange(image);
                   }}
                 />
