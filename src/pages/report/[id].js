@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { ReportNavbar } from "src/components/report/report-navbar";
 import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import prisma from "src/utils/prisma";
 
 const Editor = dynamic(() => import("react-draft-wysiwyg").then((module) => module.Editor), {
   ssr: false,
@@ -194,7 +195,7 @@ export const getServerSideProps = async (context) => {
         },
       },
     });
-    console.log(patient);
+    // console.log(patient);
     return {
       props: { patient },
     };
