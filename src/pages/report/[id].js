@@ -8,6 +8,8 @@ import { ReportNavbar } from "src/components/report/report-navbar";
 import dynamic from "next/dynamic";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import prisma from "src/utils/prisma";
+import Image from "next/image";
+
 
 const Editor = dynamic(() => import("react-draft-wysiwyg").then((module) => module.Editor), {
   ssr: false,
@@ -123,14 +125,16 @@ function PatientReport(props) {
                       </Grid>
                     </Box>
                     <div className="mt-4">
-              <a href="127.0.0.1:8081" target={"_blank"}
-                rel={"noreferrer"} className="">
+              <a href="https://diagnosoftdicom.azurewebsites.net/" target={"_blank"}
+                rel={"noreferrer"} >
               <Button 
                 variant="contained"
               >
                 View in Pacs
               </Button>
               </a>
+
+              <img src={`https://chest-predictions.s3.us-east-2.amazonaws.com/${patient.Inspection_code}.png`} alt="No anomaly detected" className="mt-3"/>
               </div>
             </div>
             <div className="flex-none h-screen">
@@ -195,7 +199,7 @@ export const getServerSideProps = async (context) => {
         },
       },
     });
-    // console.log(patient);
+    console.log(patient);
     return {
       props: { patient },
     };

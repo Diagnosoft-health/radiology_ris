@@ -7,7 +7,7 @@ import Input from './Input';
 import { Box, Container, Grid } from '@mui/material';
 
 
-const uploadImage = async ({ filename, contents }) => {
+const uploadImage = async ({ filename, contents, inspection_code,patient_name }) => {
   if (contents) {
 
     
@@ -16,7 +16,10 @@ const uploadImage = async ({ filename, contents }) => {
         `${config.api_address}${config.route_path}`,
         {
           name: filename,
+          patient_name,
+          inspection_code,
           contents,
+          
         }
       );
       
@@ -36,15 +39,16 @@ const uploadImage = async ({ filename, contents }) => {
 
 
 function UploadTest(props) {
-  const {  Inspection_code } = props
-  // let inspection_code = toString(Inspection_code)
+  const {  Inspection_code, patient_name } = props
+  
   const [input, setInput] = useState();
   const [predictions, setPredictions] = useState([]);
   const [open, setOpen] = useState(false);
   const[fileBase64String, setFileBase64String] = useState("")
 
   console.log(input)
-  // console.log(typeof inspection_code)
+  console.log("return",predictions)
+  console.log(typeof Inspection_code)
 
   return (
     
@@ -54,11 +58,14 @@ function UploadTest(props) {
             <Input
             predictions={predictions}
             Inspection_code={Inspection_code}
+            patient_Name={patient_name}
               onChange={setInput}
               onSubmit={async () => {
                 const result = await uploadImage(input);
+                console.log('retuned result',result)
                 if (result) {
-                  const [filename, prediction] = Object.entries(result)[0];
+                  const [filename, prediction] = Object.entries(result)[1];
+                  // const [filename, prediction] = result;
                   setPredictions((predictions) => {
                     const new_predictions = [...predictions];
                     new_predictions.push({ filename, prediction });

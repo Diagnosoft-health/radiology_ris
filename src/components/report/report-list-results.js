@@ -21,7 +21,7 @@ import NextLink from "next/link";
 import Link from "next/link";
 import ArticleIcon from '@mui/icons-material/Article';
 
-export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
+export const ReportListResults = ({ handleDrawerOpen, orders, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -93,10 +93,10 @@ export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
                 </TableCell> */}
                 <TableCell>Inspection Code</TableCell>
                 <TableCell>Patient Name</TableCell>
-                <TableCell>Doctor Name</TableCell>
-                <TableCell>Location</TableCell>
-                {/* <TableCell>Report</TableCell> */}
-                <TableCell>Action</TableCell>
+                
+                
+                <TableCell>Report</TableCell>
+              
               </TableRow>
             </TableHead>
             <TableBody>
@@ -126,27 +126,20 @@ export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>{order.Doctor_Name}</TableCell>
-                  <TableCell>{order.Patient_room}</TableCell>
+                  
                   {/* <TableCell align="left">
                     <Button size="small" onClick={handleDrawerOpen}>
                       Order Details
                     </Button>
                   </TableCell> */}
-                  {/* <TableCell>
+                  <TableCell>
                     <Link href={`/report/${order.Inspection_code}`}>
                       <Button size="small">
                         <ArticleIcon/>
                       </Button>
                     </Link>
-                  </TableCell> */}
-                  <TableCell align="left">
-                  <Link href={`/predictor/${order.Inspection_code}`}>
-                    <Button size="small">
-                      Start visit
-                    </Button>
-                    </Link>
                   </TableCell>
+                 
                 </TableRow>
               ))}
             </TableBody>
@@ -166,6 +159,6 @@ export const CustomerListResults = ({ handleDrawerOpen, orders, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
+ReportListResults.propTypes = {
   orders: PropTypes.array.isRequired,
 };

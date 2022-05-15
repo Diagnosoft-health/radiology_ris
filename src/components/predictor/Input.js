@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 //   return { filename, contents: base64result };
 // };
 
-function Input({ onChange, onSubmit, predictions, Inspection_code }) {
+function Input({ onChange, onSubmit, predictions, Inspection_code, patient_Name }) {
   const classes = useStyles();
   const [filename, setFilename] = useState();
   const [image, setImage] = useState();
@@ -52,9 +52,9 @@ function Input({ onChange, onSubmit, predictions, Inspection_code }) {
 
   const getImage = async (e) => {
     const filename = e.target.files[0].name;
-    // const id = Inspection_code;
-    // let inspection_code = id.toString()
-
+    let inspection_code = Inspection_code.toString();
+    let patient_name = patient_Name;
+  
     const file = await new Promise((resolve, reject) => {
       var fr = new FileReader();
       fr.onload = () => {
@@ -64,7 +64,7 @@ function Input({ onChange, onSubmit, predictions, Inspection_code }) {
     });
     const base64result = file.split(",")[1];
   
-    return { filename, contents: base64result };
+    return { filename, patient_name, inspection_code ,contents: base64result, };
   };
 
   

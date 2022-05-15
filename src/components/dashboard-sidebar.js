@@ -12,6 +12,8 @@ import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 // import { User as UserIcon } from '../icons/user';
 // import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
+import FilterFramesIcon from '@mui/icons-material/FilterFrames';
+import HorizontalSplitIcon from '@mui/icons-material/HorizontalSplit';
 
 // import { XCircle as XCircleIcon } from '../icons/x-circle';
 // import { Logo } from './logo';
@@ -30,15 +32,15 @@ const items = [
     icon: (<UsersIcon fontSize="small" />),
     title: 'Patients'
   },
-  // {
-  //   href: '/worklist',
-  //   icon: (<ChartBarIcon fontSize="small" />),
-  //   title: 'Worklist'
-  // },
   {
     href: '/orders',
-    icon: (<UsersIcon fontSize="small" />),
+    icon: (<HorizontalSplitIcon fontSize="small" />),
     title: 'Orders'
+  },
+  {
+    href: '/report',
+    icon: (<FilterFramesIcon fontSize="small" />),
+    title: 'Report'
   },
   // {
   //   href: '/login',
