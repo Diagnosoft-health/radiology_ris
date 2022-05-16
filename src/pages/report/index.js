@@ -50,8 +50,8 @@ export async function getServerSideProps() {
   try {
     const reports = await prisma.examinationRequest.findMany({
       where: {
-        uploaded: {
-          equals: true,
+        todrop: {
+          equals: 1,
         },
       },
       orderBy: {
