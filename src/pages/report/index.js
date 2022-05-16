@@ -15,11 +15,8 @@ import { ReportListResults } from "src/components/report/report-list-results";
 //   }
 // }
 
-
 const Reports = (props) => {
- 
   const { reports } = props;
-
 
   return (
     <>
@@ -35,12 +32,12 @@ const Reports = (props) => {
         }}
       >
         <CssBaseline />
-          <Container maxWidth={false}>
-            <ReportListToolbar />
-            <Box sx={{ mt: 3 }}>
-              <ReportListResults orders={reports} />
-            </Box>
-          </Container> 
+        <Container maxWidth={false}>
+          <ReportListToolbar />
+          <Box sx={{ mt: 3 }}>
+            <ReportListResults orders={reports} />
+          </Box>
+        </Container>
       </Box>
     </>
   );
@@ -52,7 +49,11 @@ export default Reports;
 export async function getServerSideProps() {
   try {
     const reports = await prisma.examinationRequest.findMany({
-    //   where: { uploaded },
+      where: {
+        uploaded: {
+          equals: true,
+        },
+      },
       orderBy: {
         Inspection_code: "desc",
       },
