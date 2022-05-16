@@ -39,7 +39,7 @@ model ExaminationRequest {
   Diagnosis                 String?                    @db.VarChar(255)
   Document_Date             Int?
   todrop                    Int?
-  uploaded                  Boolean?                   @default(false)
+  uploaded                  Int?                       @default(0)
   Patient                   Patient?                   @relation(fields: [Patient_Id], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "Id")
   DetailedReport            DetailedReport[]
   ExaminationPreparation    ExaminationPreparation[]
