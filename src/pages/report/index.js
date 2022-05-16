@@ -52,10 +52,10 @@ export default Reports;
 export async function getServerSideProps() {
   try {
     const reports = await prisma.examinationRequest.findMany({
-    //   where: { uploaded: true },
-      orderBy: {
-        Inspection_code: "desc",
-      },
+      where: { uploaded: true },
+    //   orderBy: {
+    //     Inspection_code: "desc",
+    //   },
       include: {
         Patient: {
           select: {
