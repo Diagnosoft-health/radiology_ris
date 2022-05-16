@@ -52,7 +52,7 @@ export default Reports;
 export async function getServerSideProps() {
   try {
     const reports = await prisma.examinationRequest.findMany({
-      where: { uploaded: true },
+    //   where: { uploaded: true },
       orderBy: {
         Inspection_code: "desc",
       },
