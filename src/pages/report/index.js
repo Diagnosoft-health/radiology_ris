@@ -19,7 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { OrderDetails } from "src/components/order/order-details";
 // import { orders } from "src/__mocks__/orders";
-import prisma from "src/utils/prisma";
+// import prisma from "src/utils/prisma";
 import { ReportListToolbar } from "../../components/report/order-list-toolbar";
 import { ReportListResults } from "src/components/report/report-list-results";
 
@@ -106,8 +106,8 @@ const Reports = (props) => {
           <Container maxWidth={false}>
             <ReportListToolbar />
             <Box sx={{ mt: 3 }}>
-              <ReportListResults orders={reports}
-               handleDrawerOpen={handleDrawerOpen} />
+              {/* <ReportListResults orders={reports}
+                /> */}
             </Box>
           </Container>
         </Main>
@@ -153,30 +153,32 @@ Reports.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Reports;
 
-export async function getServerSideProps() {
-  try {
-    const reports = await prisma.examinationRequest.findMany({
-     where: { uploaded: true },
-      
-      include: {
-        Patient: {
-          select: {
-            Name: true,
-            Id_Number: true,
-            Place_of_Birth: true,
-            Identity_Type: true,
-            Gender: true,
-            Mobile_Number: true,
-            Allergies: true,
-          },
-        },
-      },
-    });
-    // console.log(orders);
-    return {
-      props: { reports },
-    };
-  } catch (error) {
-    console.log(error);
-  }
-}
+// export async function getServerSideProps() {
+//   try {
+//     const reports = await prisma.examinationRequest.findMany({
+//      where: { uploaded: true },
+//       orderBy: {
+//         Inspection_code: "desc",
+//       },
+//       include: {
+//         Patient: {
+//           select: {
+//             Name: true,
+//             Id_Number: true,
+//             Place_of_Birth: true,
+//             Identity_Type: true,
+//             Gender: true,
+//             Mobile_Number: true,
+//             Allergies: true,
+//           },
+//         },
+//       },
+//     });
+//     // console.log(orders);
+//     return {
+//       props: { reports },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
