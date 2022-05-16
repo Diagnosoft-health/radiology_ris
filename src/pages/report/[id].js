@@ -199,7 +199,7 @@ export const getServerSideProps = async (context) => {
         },
       },
     });
-    console.log(patient);
+    // console.log(patient);
     return {
       props: { patient },
     };

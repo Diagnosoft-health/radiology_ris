@@ -6,7 +6,7 @@ export default async (req, res) => {
       try {
         const data = JSON.parse(req.body)
 
-        console.log(data)
+        // console.log(data)
         const order = await prisma.detailedReport.create({
           data: {
             Report_Content: data.data,

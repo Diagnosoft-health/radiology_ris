@@ -1,14 +1,14 @@
 import Head from "next/head";
 import React from "react";
 import { Box, Container } from "@mui/material";
-import { CustomerListResults } from "../../components/order/order-list-results";
+
 import { DashboardLayout } from "../../components/dashboard-layout";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { styled, useTheme } from "@mui/material/styles";
 // import Box from '@mui/material/Box';
 import Drawer from "@mui/material/Drawer";
 import CloseIcon from "@mui/icons-material/Close";
-import Toolbar from "@mui/material/Toolbar";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -134,10 +134,7 @@ const Reports = (props) => {
                 alignItems: "center",
               }}
             >
-              <Typography color="textPrimary" 
-              variant="h5">
-                Order No: {reports.Inspection_code}
-              </Typography>
+              
               <IconButton onClick={handleDrawerClose}>
                 <CloseIcon />
 
